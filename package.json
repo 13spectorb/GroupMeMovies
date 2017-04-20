@@ -1,0 +1,25 @@
+{
+  "name": "groupme-movies",
+  "version": "1.0.0",
+  "description": "GroupMe bot to display current week opening movies when the word movie is detected",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/13spectorb/GroupMeMovies.git"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "groupme",
+    "themoviedb"
+  ],
+  "author": "Ben Spector",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/13spectorb/GroupMeMovies/issues"
+  },
+  "homepage": "https://github.com/13spectorb/GroupMeMovies#readme"
+}
