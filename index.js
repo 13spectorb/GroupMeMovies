@@ -1,6 +1,6 @@
-var director, https, moviebot, request, router, server
+var https, moviebot, request, router, server
 
-director = require('director');
+// var director = require('director');
 https = require('https');
 moviebot = require('./moviebot.js');
 
@@ -29,4 +29,6 @@ server = https.createServer(function(request, response) {
         //     res.end(err.message);
         // });
     
-}).listen(process.env.PORT);
+    });
+});
+server.listen(process.env.PORT);
