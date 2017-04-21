@@ -12,10 +12,10 @@ var https = require("https");
 var bot_id = "dd48f9623940e77715a0874f5a"
 
 function respond() {
-	var request = JSON.parse(this.request.body[0]),
+	var requestBody = JSON.parse(this.request.body[0]),
 		regex = new RegExp('movie', 'MOVIE', 'Movie');
 
-	if(request.text && regex.test(request.text)) {
+	if(requestBody.text && regex.test(requestBody.text)) {
 		this.response.writeHead(200);
 		postMovies(getMovies());
 		this.response.end();
@@ -61,8 +61,3 @@ function postMovies(movies) {
 }
 
 exports.respond = respond;
-// var xhr = new XMLHttpRequest();
-
-
-
-// curl -X POST -d '{"bot": { "name": "MovieBot", "group_id": "30555241", "callback_url" : "https://groupme-movie-bot.herokuapp.com/"}}' -H 'Content-Type: application/json' https://api.groupme.com/v3/bots?token=f80cc46006ca01352bfd07722314ca56

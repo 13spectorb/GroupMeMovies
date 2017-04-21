@@ -4,11 +4,11 @@ director = require('director');
 https = require('https');
 moviebot = require('./moviebot.js');
 
-router = new director.http.Router({
-    '/' : {
-        post: moviebot.respond
-    }
-});
+// router = new director.http.Router({
+//     '/' : {
+//         post: moviebot.respond
+//     }
+// });
 
 server = https.createServer(function(request, response) {
 
@@ -21,10 +21,12 @@ server = https.createServer(function(request, response) {
     }).on('end', function() {
         body = Buffer.concat(body).toString();
 
+        moviebot.respond();
 
-    router.dispatch(req, res, function(err) {
-        res.writeHead(err.status, {"Content-Type": "text/plain"});
-        res.end(err.message);
-    });
+
+        // router.dispatch(req, res, function(err) {
+        //     res.writeHead(err.status, {"Content-Type": "text/plain"});
+        //     res.end(err.message);
+        // });
     
 }).listen(8080);
