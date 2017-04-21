@@ -4,7 +4,7 @@
   "description": "GroupMe bot to display current week opening movies when the word movie is detected",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "start": "index.js"
   },
   "repository": {
     "type": "git",
