@@ -1,7 +1,7 @@
 var https, moviebot, request, router, server
 
 // var director = require('director');
-https = require('https');
+https = require('http');
 moviebot = require('./moviebot.js');
 
 // router = new director.http.Router({
@@ -10,7 +10,7 @@ moviebot = require('./moviebot.js');
 //     }
 // });
 
-server = https.createServer(function(request, response) {
+server = http.createServer(function(request, response) {
 
     request.body = [];
 

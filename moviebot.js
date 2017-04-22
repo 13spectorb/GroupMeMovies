@@ -7,7 +7,7 @@ group_name="MovieChat";
 bot_id="dd48f9623940e77715a0874f5a"
 */
 
-var https = require("https");
+var http = require("http");
 
 var bot_id = "dd48f9623940e77715a0874f5a"
 
@@ -43,7 +43,7 @@ function postMovies(movies) {
 		"text" : movies
 	}
 
-	request = HTTPS.request(options, function(response) {
+	request = http.request(options, function(response) {
 		if(response.statusCode == 202) {
        	 //neat
       	} else {
