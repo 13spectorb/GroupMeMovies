@@ -1,14 +1,14 @@
 var https, moviebot, request, router, server
 
-// var director = require('director');
-https = require('http');
+var director = require('director');
+http = require('http');
 moviebot = require('./moviebot.js');
 
-// router = new director.http.Router({
-//     '/' : {
-//         post: moviebot.respond
-//     }
-// });
+router = new director.http.Router({
+    '/' : {
+        post: moviebot.respond
+    }
+});
 
 server = http.createServer(function(request, response) {
 
