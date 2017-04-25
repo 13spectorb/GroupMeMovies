@@ -1,7 +1,6 @@
 /* Node.js */
 
 var http = require("http");
-const mdb = require('moviedb')('efcba7f7bb771e30b271a2c4cc3b0a53');
 var botID = process.env.BOT_ID;
 var movies;
 
