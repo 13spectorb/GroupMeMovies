@@ -29,5 +29,6 @@
   "engines": {
     "node": "7.9.0",
     "npm": "4.2.0"
-  }
+  },
+  "devDependencies": {}
 }
