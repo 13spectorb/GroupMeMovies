@@ -42,8 +42,9 @@ function getMovies() {
 	  });
 
 	  getMoviesResponse.on("end", function () {
-	    movies = Buffer.concat(body).toString();
-	    console.log(movies.toString());
+	    body = Buffer.concat(body).toString();
+	    console.log(body.toString());
+	    movies = body;
 	  });
 	});
 

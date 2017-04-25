@@ -15,9 +15,5 @@ groupme_token="f80cc46006ca01352bfd07722314ca56";
 group_id="30555241"
 group_name="MovieChat";
 bot_id="dd48f9623940e77715a0874f5a"
-
-
-
-
  -->
 
