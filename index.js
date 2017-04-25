@@ -1,9 +1,13 @@
+/* Node.js */
+
 var http, director, cool, moviebot, router, server, port;
 
 http        = require('http');
 director    = require('director');
 moviebot    = require('./moviebot.js');
 
+
+//simple router to call moviebot.respond when a POST request is received
 router = new director.http.Router({
     '/' : {
         post: moviebot.respond,
@@ -11,6 +15,7 @@ router = new director.http.Router({
     }
 });
 
+//create a new server to listen for HTTP requests.
 server = http.createServer(function (req, res) {
     request.body = [];
 
