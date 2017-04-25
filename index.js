@@ -1,6 +1,6 @@
 /* Node.js */
 
-var http, director, cool, moviebot, router, server, port;
+var http, director, moviebot, router, server, port;
 
 http        = require('http');
 director    = require('director');
@@ -15,15 +15,17 @@ router = new director.http.Router({
     }
 });
 
-//create a new server to listen for HTTP requests.
+//create a new server to listen for HTTP requests. 
 server = http.createServer(function (request, response) {
     request.body = [];
 
     request.on('error', function(err) {
         console.error(err);
     }).on('data', function(chunk) {
-        request.body.push(chunk.toString());
-        console.log(request.body);
+        request.body.push(chunk);
+    }).on("end", function () {
+        request.body = Buffer.concat(request.body).toString();
+        console.log(body.toString());
     });
 
     router.dispatch(request, response, function(err) {

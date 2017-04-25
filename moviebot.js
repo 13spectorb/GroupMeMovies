@@ -1,8 +1,9 @@
 /* Node.js */
 
-var http = require("http");
-var botID = process.env.BOT_ID;
-var movies;
+var http, botID, movies;
+
+http 	= require("http");
+botID 	= process.env.BOT_ID;
 
 //
 function respond() {
@@ -34,14 +35,14 @@ function getMovies() {
 	  "headers": {}
 	};
 
-	var getMoviesRequest = http.request(options, function (getMoviesResponse) {
+	var getMoviesRequest = http.request(options, function (TMDB_response) {
 	  var body = [];
 
-	  getMoviesResponse.on("data", function (chunk) {
+	  TMDB_response.on("data", function (chunk) {
 	    body.push(chunk);
 	  });
 
-	  getMoviesResponse.on("end", function () {
+	  TMDB_response.on("end", function () {
 	    body = Buffer.concat(body).toString();
 	    console.log(body.toString());
 	    movies = body;
@@ -63,7 +64,7 @@ function postMovies() {
 	};
 
 	postMoviesBody = {
-		"bot_id" : 'dd48f9623940e77715a0874f5a',
+		"bot_id" : botID,
 		"text" : "movies"
 	}
 
