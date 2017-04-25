@@ -16,7 +16,7 @@ router = new director.http.Router({
 });
 
 //create a new server to listen for HTTP requests.
-server = http.createServer(function (req, res) {
+server = http.createServer(function (request, response) {
     request.body = [];
 
     request.on('error', function(err) {
