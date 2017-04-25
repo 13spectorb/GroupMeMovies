@@ -23,8 +23,7 @@
   },
   "homepage": "https://github.com/13spectorb/GroupMeMovies#readme",
   "dependencies": {
-    "http": "^1.0.0",
-    "moviedb": "^0.2.8"
+    "director": "^1.2.8"
   },
   "engines": {
     "node": "7.9.0",

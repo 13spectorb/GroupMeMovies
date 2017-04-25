@@ -34,11 +34,11 @@
 // });
 // server.listen(process.env.PORT);
 
-var http, director, cool, bot, router, server, port;
+var http, director, cool, moviebot, router, server, port;
 
 http        = require('http');
 director    = require('director');
-moviebot = require('./moviebot.js');
+moviebot    = require('./moviebot.js');
 
 router = new director.http.Router({
   '/' : {
