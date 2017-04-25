@@ -26,9 +26,9 @@ server = http.createServer(function (request, response) {
         console.log(request.body);
     });
 
-    router.dispatch(req, res, function(err) {
-        res.writeHead(err.status, {"Content-Type": "text/plain"});
-        res.end(err.message);
+    router.dispatch(request, response, function(err) {
+        response.writeHead(err.status, {"Content-Type": "text/plain"});
+        response.end(err.message);
     });
 });
 
@@ -36,6 +36,6 @@ port = Number(process.env.PORT || 8080);
 server.listen(port);
 
 function ping() {
-    this.res.writeHead(200);
-    this.res.end("Hey, I'm The MovieBot.");
+    this.response.writeHead(200);
+    this.response.end("Hey, I'm The MovieBot.");
 }

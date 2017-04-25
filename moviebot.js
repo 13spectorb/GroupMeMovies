@@ -6,18 +6,18 @@ var movies;
 
 //
 function respond() {
-	var requestBody = JSON.parse(this.req.body[0]),
+	var requestBody = JSON.parse(this.request.body[0]),
 		// regex = new RegExp('movie', 'MOVIE', 'Movie')
 		regex = new RegExp('movie');
 
 	if(requestBody.text && regex.test(requestBody.text)) {
 		getMovies();
-		this.res.writeHead(200);
+		this.response.writeHead(200);
 		postMovies();
-		this.res.end();
+		this.response.end();
 	} else {
-		this.res.writeHead(200);
-		this.res.end();
+		this.response.writeHead(200);
+		this.response.end();
 	}
 }
 
