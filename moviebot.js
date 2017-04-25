@@ -7,7 +7,7 @@ botID 	= process.env.BOT_ID;
 
 //
 function respond() {
-	var requestBody = JSON.parse(this.request.body[0]),
+	var requestBody = JSON.parse(this.response.body[0]),
 		// regex = new RegExp('movie', 'MOVIE', 'Movie')
 		regex = new RegExp('movie');
 
