@@ -22,10 +22,8 @@ server = http.createServer(function (request, response) {
     request.on('error', function(err) {
         console.error(err);
     }).on('data', function(chunk) {
-        request.body.push(chunk);
-    }).on("end", function () {
-        request.body = Buffer.concat(request.body).toString();
-        console.log(body.toString());
+        request.body.push(chunk.toString());
+        console.log(request.body.toString());
     });
 
     router.dispatch(request, response, function(err) {
