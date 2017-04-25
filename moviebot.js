@@ -1,27 +1,23 @@
 /* Node.js */
 
-/*
-groupme_token="f80cc46006ca01352bfd07722314ca56";
-group_id="30555241"
-group_name="MovieChat";
-bot_id="dd48f9623940e77715a0874f5a"
-*/
-
 var http = require("http");
 const mdb = require('moviedb')('efcba7f7bb771e30b271a2c4cc3b0a53');
 var botID = process.env.BOT_ID;
+var movies;
 
 function respond() {
-	var requestBody = JSON.parse(this.request.body[0]),
-		regex = new RegExp('movie', 'MOVIE', 'Movie');
+	var requestBody = JSON.parse(this.req.body[0]),
+		// regex = new RegExp('movie', 'MOVIE', 'Movie')
+		regex = new RegExp('movie');
 
 	if(requestBody.text && regex.test(requestBody.text)) {
-		this.response.writeHead(200);
-		postMovies(getMovies());
-		this.response.end();
+		getMovies();
+		this.res.writeHead(200);
+		postMovies();
+		this.res.end();
 	} else {
-		this.response.writeHead(200);
-		this.response.end();
+		this.res.writeHead(200);
+		this.res.end();
 	}
 }
 
@@ -30,7 +26,6 @@ function getMovies() {
 	var oneWeekAgo = new Date();
 	oneWeekAgo.setDate(oneWeekAgo.getDate()-7);
 
-	
 	var options = {
 	  "method": "GET",
 	  "hostname": "api.themoviedb.org",
@@ -39,26 +34,26 @@ function getMovies() {
 	  "headers": {}
 	};
 
-	var req = http.request(options, function (res) {
-	  var chunks = [];
+	var getMoviesRequest = http.request(options, function (getMoviesResponse) {
+	  var body = [];
 
-	  res.on("data", function (chunk) {
-	    chunks.push(chunk);
+	  getMoviesResponse.on("data", function (chunk) {
+	    body.push(chunk);
 	  });
 
-	  res.on("end", function () {
-	    var body = Buffer.concat(chunks);
-	    console.log(body.toString());
+	  getMoviesResponse.on("end", function () {
+	    movies = Buffer.concat(body).toString();
+	    console.log(movies.toString());
 	  });
 	});
 
-	req.write("{}");
-	req.end();
-	
+	getMoviesRequest.write("{}");
+	getMoviesRequest.end();
+
 }
 
-function postMovies(movies) {
-	var options, body, request;
+function postMovies() {
+	var options, postMoviesBody, postMoviesReq;
 
 	options = {
 		hostname: 'https://groupme-movie-bot.herokuapp.com/',
@@ -66,24 +61,24 @@ function postMovies(movies) {
 		method: 'POST'
 	};
 
-	body = {
+	postMoviesBody = {
 		"bot_id" : 'dd48f9623940e77715a0874f5a',
 		"text" : "movies"
 	}
 
-	request = http.request(options, function(response) {
+	postMoviesReq = http.request(options, function(response) {
 		if(response.statusCode != 202) {
         	console.log('bad status code ' + response.statusCode);
       	}
 	});
 
-	request.on('error', function(err) {
+	postMoviesReq.on('error', function(err) {
     	console.log('error:' + JSON.stringify(err));
   	});
-  	request.on('timeout', function(err) {
+  	postMoviesReq.on('timeout', function(err) {
 	    console.log('timeout: ' + JSON.stringify(err));
   	});
-	request.end(JSON.stringify(body));
+	postMoviesReq.end(JSON.stringify(postMoviesBody));
 }
 
 exports.respond = respond;
