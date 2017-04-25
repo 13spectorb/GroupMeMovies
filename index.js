@@ -36,6 +36,6 @@ port = Number(process.env.PORT || 8080);
 server.listen(port);
 
 function ping() {
-    this.response.writeHead(200);
-    this.response.end("Hey, I'm The MovieBot.");
+    this.res.writeHead(200);
+    this.res.end("Hey, I'm The MovieBot.");
 }
