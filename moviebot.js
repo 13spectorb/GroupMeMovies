@@ -11,7 +11,7 @@ oneWeekAgo.setDate(oneWeekAgo.getDate()-7);
 
 // parse the request body text for movie and if it exists post a response
 function respond() {
-	var requestBody = JSON.parse(this.request.body[0]),
+	var requestBody = JSON.parse(request.body[0]),
 		// regex = new RegExp('movie', 'MOVIE', 'Movie')
 		regex = new RegExp('movie');
 
