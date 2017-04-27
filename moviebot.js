@@ -1,13 +1,17 @@
 /* Node.js */
 
-var http, botID, movies;
+var http, botID, movies, today, oneWeekAgo;
 
-http 	= require("http");
-botID 	= process.env.BOT_ID;
+http 		= require("http");
+botID 		= process.env.BOT_ID;
+movies 		= "";
+today 		= new Date();
+oneWeekAgo 	= new Date();
+oneWeekAgo.setDate(oneWeekAgo.getDate()-7);
 
-//
+// parse the request body text for movie and if it exists post a response
 function respond() {
-	var requestBody = JSON.parse(this.response.body[0]),
+	var requestBody = JSON.parse(this.request.body[0]),
 		// regex = new RegExp('movie', 'MOVIE', 'Movie')
 		regex = new RegExp('movie');
 
@@ -22,36 +26,40 @@ function respond() {
 	}
 }
 
+// fetches movies released within the last week from The Movie Database.
 function getMovies() {
-	var today = new Date();
-	var oneWeekAgo = new Date();
-	oneWeekAgo.setDate(oneWeekAgo.getDate()-7);
+	var updatedToday = new Date();
+	
+	//only fetch movies if a day has passed (i.e. only fetch once per day)
+	if (updatedToday != today) {
+		today = updatedToday;
+		var options = {
+		  	"method": "GET",
+		  	"hostname": "api.themoviedb.org",
+		  	"port": null,
+		  	"path": "/3/discover/movie?primary_release_date.lte="+today+"&primary_release_date.gte="+oneWeekAgo+"&page=1&include_video=false&include_adult=false&sort_by=popularity.desc&language=en-US&api_key=efcba7f7bb771e30b271a2c4cc3b0a53",
+		  	"headers": {}
+		};
 
-	var options = {
-	  "method": "GET",
-	  "hostname": "api.themoviedb.org",
-	  "port": null,
-	  "path": "/3/discover/movie?primary_release_date.lte="+today+"&primary_release_date.gte="+oneWeekAgo+"&page=1&include_video=false&include_adult=false&sort_by=popularity.desc&language=en-US&api_key=efcba7f7bb771e30b271a2c4cc3b0a53",
-	  "headers": {}
-	};
+		var getMoviesRequest = http.request(options, function (TMDB_response) {
+		  	var body = [];
 
-	var getMoviesRequest = http.request(options, function (TMDB_response) {
-	  var body = [];
+		  	TMDB_response.on("data", function (chunk) {
+		    	body.push(chunk);
+		  	});
 
-	  TMDB_response.on("data", function (chunk) {
-	    body.push(chunk);
-	  });
+		  	TMDB_response.on("end", function () {
+			    body = Buffer.concat(body);
+			    movies = "";
+			    for (var movie in body.results) {
+			    	movies = movies+(movie["title"].toString() + "\n");
+			    }
+		  	});
+		});
 
-	  TMDB_response.on("end", function () {
-	    body = Buffer.concat(body).toString();
-	    console.log(body.toString());
-	    movies = body;
-	  });
-	});
-
-	getMoviesRequest.write("{}");
-	getMoviesRequest.end();
-
+		getMoviesRequest.write("{}");
+		getMoviesRequest.end();
+	}
 }
 
 function postMovies() {
