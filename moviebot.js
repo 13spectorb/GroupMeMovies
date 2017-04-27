@@ -63,17 +63,19 @@ function getMovies() {
 }
 
 function postMovies() {
-	var options, postMoviesBody, postMoviesReq;
+	var options, postMoviesBody, postMoviesReq, postText;
+
+	postText = "movies showing this week: \n" + movies;
 
 	options = {
-		hostname: 'https://groupme-movie-bot.herokuapp.com/',
+		hostname: 'api.groupme.com',
 		path: '/v3/bots/post',
 		method: 'POST'
 	};
 
 	postMoviesBody = {
 		"bot_id" : botID,
-		"text" : "movies"
+		"text" : postText
 	}
 
 	postMoviesReq = http.request(options, function(response) {
